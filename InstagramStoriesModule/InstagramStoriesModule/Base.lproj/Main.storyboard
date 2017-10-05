@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,7 +43,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y2e-28-OSe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="104"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
@@ -95,10 +96,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="137.18140929535232"/>
         </scene>
-        <!--View Controller-->
+        <!--Instagram Story Detail View Controller-->
         <scene sceneID="ecY-1f-TIm">
             <objects>
-                <viewController id="GgS-DT-zp1" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InstagramStoryDetailViewController" id="GgS-DT-zp1" customClass="InstagramStoryDetailViewController" customModule="InstagramStoriesModule" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y9B-SV-HXI"/>
                         <viewControllerLayoutGuide type="bottom" id="4sH-2s-4Xl"/>
@@ -107,23 +108,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rFa-bi-1bx">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rFa-bi-1bx">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LH4-hT-dVF">
-                                    <size key="itemSize" width="126" height="125"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="LH4-hT-dVF">
+                                    <size key="itemSize" width="375" height="667"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="h84-mx-i1r">
-                                        <rect key="frame" x="0.0" y="0.0" width="126" height="125"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InstagramStoryCollectionViewCell" id="h84-mx-i1r" customClass="InstagramStoryCollectionViewCell" customModule="InstagramStoriesModule" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="126" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dkL-VR-bGc">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                                </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PVS-aK-e87">
+                                                    <rect key="frame" x="291" y="68" width="46" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="FST-GC-vYF"/>
+                                                        <constraint firstAttribute="width" constant="46" id="QX4-x2-03r"/>
+                                                    </constraints>
+                                                    <state key="normal" image="back"/>
+                                                    <connections>
+                                                        <action selector="didTapBackButton:" destination="GgS-DT-zp1" eventType="touchUpInside" id="Zlx-Mt-tPw"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="dkL-VR-bGc" firstAttribute="top" secondItem="h84-mx-i1r" secondAttribute="top" id="7Ju-gg-MJd"/>
+                                            <constraint firstItem="PVS-aK-e87" firstAttribute="top" secondItem="h84-mx-i1r" secondAttribute="topMargin" constant="60" id="F5p-FH-3Hn"/>
+                                            <constraint firstAttribute="bottom" secondItem="dkL-VR-bGc" secondAttribute="bottom" id="MlX-ME-TgA"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="PVS-aK-e87" secondAttribute="trailing" constant="30" id="OVC-HV-IBm"/>
+                                            <constraint firstAttribute="trailing" secondItem="dkL-VR-bGc" secondAttribute="trailing" id="uRd-zn-ARH"/>
+                                            <constraint firstItem="dkL-VR-bGc" firstAttribute="leading" secondItem="h84-mx-i1r" secondAttribute="leading" id="xrD-y7-euP"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="dkL-VR-bGc" id="iTx-49-MOr"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -136,10 +164,16 @@
                             <constraint firstItem="4sH-2s-4Xl" firstAttribute="top" secondItem="rFa-bi-1bx" secondAttribute="bottom" id="j39-08-aKQ"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="storyDetailCollectionView" destination="rFa-bi-1bx" id="Qse-4d-ygG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J7m-Q3-3Z6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="822" y="137"/>
+            <point key="canvasLocation" x="821.60000000000002" y="136.28185907046478"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="32" height="32"/>
+    </resources>
 </document>

@@ -8,9 +8,11 @@
 
 import UIKit
 
+
 class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
     @IBOutlet weak var storyCollectionView: UICollectionView!
     @IBOutlet weak var headerView: UIView!
+     var navController : UINavigationController!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +27,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
        
     }
     
-    // pragme mark : - CollectionView Deleagtes
+   // pragme mark : - CollectionView Deleagtes
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -55,6 +57,12 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
               return cell
     }
        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(storyboard: .Main)
+        let subsectionVC : InstagramStoryDetailViewController = storyboard.instantiateViewController()
+        navController = UINavigationController(rootViewController: subsectionVC) // Creating a
+        navController.isNavigationBarHidden = true
+        self.present(navController, animated:true, completion: nil)
         
     }
     
