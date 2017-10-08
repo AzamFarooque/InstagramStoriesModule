@@ -38,15 +38,6 @@ class SegmentedProgressBar: UIView {
                     layer.timeOffset = pausedTime
                     layer.speed = 1.0
                 }
-            } else {
-//                let segment = segments[currentAnimationIndex]
-//                let layer = segment.topSegmentView.layer
-//                let pausedTime = layer.timeOffset
-//                layer.speed = 1.0
-//                layer.timeOffset = 0.0
-//                layer.beginTime = 0.0
-//                let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-//                layer.beginTime = timeSincePause
             }
         }
     }

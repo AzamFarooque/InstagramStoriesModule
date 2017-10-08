@@ -84,7 +84,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         subsectionVC.images = ["Image","giphy.mp4","Image-1"]
         }
         if indexPath.row == 1{
-        subsectionVC.images = ["giphy.mp4","Image-2","open_sign.mp4"]
+        subsectionVC.images = ["giphy.mp4","Image","open_sign.mp4"]
         }
         if indexPath.row == 2{
         subsectionVC.images = ["Image"]
@@ -141,10 +141,12 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         return cell
     }
     func selectNextstories(){
-        
+        if selectedIndex + 1 < images.count{
         let indexPathForFirstRow = IndexPath(row: selectedIndex + 1, section: 0)
         storyCollectionView.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.left)
         self.collectionView(storyCollectionView, didSelectItemAt: indexPathForFirstRow)
+        }
+        return
     }
 
     

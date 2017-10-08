@@ -12,9 +12,7 @@ import AVKit
 
 protocol SelecteingNextStoriesDelegate: class {
     func selectNextstories()
-   
-}
-
+   }
 
 class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBarDelegate {
     weak var delegate: SelecteingNextStoriesDelegate?
@@ -23,14 +21,13 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     var images  = [] as NSArray
     private var spb: SegmentedProgressBar!
     private var count : Int!
+    var isVideo : Bool = false
+    var videoDuration : TimeInterval!
     @IBOutlet weak var storyDetailCollectionView: UICollectionView!
-    
-    
-       override func viewDidLoad() {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-         self.view.backgroundColor = UIColor.white
-        
-        
+        self.view.backgroundColor = UIColor.white
         updateImage(index: 0)
         
         spb = SegmentedProgressBar(numberOfSegments: images.count)
@@ -39,24 +36,16 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         spb.topColor = UIColor.white
         spb.bottomColor = UIColor.white.withAlphaComponent(0.25)
         spb.padding = 2
+        if isVideo == true{
+        spb.duration = videoDuration
+        }
         view.addSubview(spb)
-        
-       
-        
         spb.startAnimation()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedView)))
        }
     
-      func ratingButtonTapped() {
-        self.dismiss(animated: false, completion: nil)
-    }
-    
-    
-   
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
+    func ratingButtonTapped() {
+    self.dismiss(animated: false, completion: nil)
     }
     
     
@@ -83,14 +72,14 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     private func updateImage(index: Int) {
         
         if(images.count > index){
-        
+       
         if (images[index] as! String).range(of: "mp4") != nil{
         iv.isHidden = true
         playerController.view.isHidden = false
-        playVideo()
+        playVideo(videoName: images[index] as! String as NSString)
         }
         else{
-            
+            isVideo = false
             iv.isHidden = false
             playerController.view.isHidden = true
             iv.frame = view.bounds
@@ -113,20 +102,22 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
             
         }
     
-       count = index
+        count = index
         }
-           }
+    }
 
-    private func playVideo() {
-        guard let path = Bundle.main.path(forResource: "giphy", ofType:"mp4") else {
-            debugPrint("giphy.mp4 not found")
+    private func playVideo(videoName : NSString) {
+        let videoExtention = videoName.pathExtension
+        let videoPrefix = videoName.deletingPathExtension
+        guard let path = Bundle.main.path(forResource: videoPrefix, ofType:videoExtention) else {
+            debugPrint("\(videoPrefix).\(videoExtention) not found")
             return
         }
+        isVideo = true
         let player = AVPlayer(url: URL(fileURLWithPath: path))
         let asset = AVURLAsset.init(url: URL(fileURLWithPath: path))
         let duration = asset.duration.seconds
-        
-        
+        videoDuration = duration
         playerController = AVPlayerViewController()
         playerController.player = player
         playerController.showsPlaybackControls = false
@@ -137,25 +128,27 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
             spb.duration = duration
             self.view.bringSubview(toFront: spb)
         }
-
-       
         
         let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
         button.setImage(UIImage(named: "back"), for: .normal)
         button.addTarget(self, action: #selector(ratingButtonTapped), for: .touchUpInside)
         self.view.addSubview(button)
         self.view.bringSubview(toFront: button)
-
+        
         
     NotificationCenter.default.addObserver(self, selector: #selector(InstagramStoryDetailViewController.finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
 
         }
-    func finishVideo()
-    {
-      //  self.dismiss(animated: false, completion: nil)
-        updateImage(index: count+1)
+    func finishVideo(){
+        updateImage(index: count)
         print("Video Finished")
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+    }
+
  
     /*
     // MARK: - Navigation
