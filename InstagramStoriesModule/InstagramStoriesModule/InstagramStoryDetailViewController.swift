@@ -2,67 +2,151 @@
 //  InstagramStoryDetailViewController.swift
 //  InstagramStoriesModule
 //
-//  Created by Farooque on 05/10/17.
+//  Created by Farooque on 08/10/17.
 //  Copyright © 2017 Quintype. All rights reserved.
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
-class InstagramStoryDetailViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBarDelegate {
 
+    private let iv = UIImageView()
+    private var playerController = AVPlayerViewController()
+    private let images = ["Image","Image-1","giphy.mp4","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8","giphy.mp4"]
+    private var spb: SegmentedProgressBar!
+    private var count : Int!
     @IBOutlet weak var storyDetailCollectionView: UICollectionView!
-    override func viewDidLoad() {
+    
+    
+       override func viewDidLoad() {
         super.viewDidLoad()
+         self.view.backgroundColor = UIColor.white
         
-        storyDetailCollectionView.delegate = self
-        storyDetailCollectionView.dataSource = self
-
-        // Do any additional setup after loading the view.
+        
+        updateImage(index: 0)
+        
+        spb = SegmentedProgressBar(numberOfSegments: images.count)
+        spb.frame = CGRect(x: 15, y: 15, width: view.frame.width - 30, height: 4)
+        spb.delegate = self
+        spb.topColor = UIColor.white
+        spb.bottomColor = UIColor.white.withAlphaComponent(0.25)
+        spb.padding = 2
+        view.addSubview(spb)
+        
+       
+        
+        spb.startAnimation()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedView)))
+       }
+    
+      func ratingButtonTapped() {
+        self.dismiss(animated: false, completion: nil)
     }
     
-    // pragme mark : - CollectionView Deleagtes
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 8
-    }
-    private func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InstagramStoryCollectionViewCell", for: indexPath as IndexPath) as! InstagramStoryCollectionViewCell
-        cell.backgroundColor = UIColor.white
-        if (indexPath.row % 2 == 0)
-        {
-            let image: UIImage = UIImage(named: "Image-1")!
-            cell.imageView.image = image
-        }
-        else
-        {
-            let image: UIImage = UIImage(named: "Image-2")!
-            cell.imageView.image = image
-        }
-        return cell
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-          }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        return CGSize(width : self.view.frame.size.width , height : self.view.frame.size.height)
-    }
-    @IBAction func didTapBackButton(_ sender: Any) {
-        
-        self.dismiss(animated: true, completion: nil)
-    }
+   
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    func segmentedProgressBarChangedIndex(index: Int) {
+        print("Now showing index: \(index)")
+        updateImage(index: index)
+    }
+    
+    func segmentedProgressBarFinished() {
+        print("Finished!")
+        self.dismiss(animated: false, completion: nil)
+    }
+    
+    @objc private func tappedView() {
+         spb.isPaused = !spb.isPaused
+         updateImage(index: count + 1)
+    }
+    
+    private func updateImage(index: Int) {
+        
+        if(images.count > index){
+        
+        if images[index].range(of: "mp4") != nil{
+            
+        iv.isHidden = true
+        playerController.view.isHidden = false
+        playVideo()
+        }
+        else{
+            
+            iv.isHidden = false
+            playerController.view.isHidden = true
+            iv.frame = view.bounds
+            iv.contentMode = .scaleAspectFill
+            self.view.addSubview(iv)
+            
+            let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
+            button.setImage(UIImage(named: "back"), for: .normal)
+            button.addTarget(self, action: #selector(ratingButtonTapped), for: .touchUpInside)
+            self.view.addSubview(button)
+            self.view.bringSubview(toFront: button)
 
+
+
+            iv.image = UIImage(named : images[index])
+            if index > 0{
+             self.view.bringSubview(toFront: spb)
+             spb.duration = 5   
+            }
+            
+        }
+    
+       count = index
+        }
+           }
+
+    private func playVideo() {
+        guard let path = Bundle.main.path(forResource: "giphy", ofType:"mp4") else {
+            debugPrint("giphy.mp4 not found")
+            return
+        }
+        let player = AVPlayer(url: URL(fileURLWithPath: path))
+        let asset = AVURLAsset.init(url: URL(fileURLWithPath: path))
+        let duration = asset.duration.seconds
+        
+        spb.duration = duration
+       
+        playerController = AVPlayerViewController()
+        playerController.player = player
+        playerController.showsPlaybackControls = false
+        playerController.view.frame = CGRect(x:0,y:0,width : self.view.frame.size.width,height : self.view.frame.size.height)
+        self.view.addSubview(playerController.view)
+        player.play()
+        self.view.bringSubview(toFront: spb)
+        
+        let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
+        button.setImage(UIImage(named: "back"), for: .normal)
+        button.addTarget(self, action: #selector(ratingButtonTapped), for: .touchUpInside)
+        self.view.addSubview(button)
+        self.view.bringSubview(toFront: button)
+
+        
+    NotificationCenter.default.addObserver(self, selector: #selector(InstagramStoryDetailViewController.finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+
+        }
+    func finishVideo()
+    {
+      //  self.dismiss(animated: false, completion: nil)
+        updateImage(index: count+1)
+        print("Video Finished")
+    }
+ 
     /*
     // MARK: - Navigation
 

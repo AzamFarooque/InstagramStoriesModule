@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A33F81631F89530F00988950 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F81621F89530F00988950 /* SegmentedProgressBar.swift */; };
+		A36529391F8A5F2E009616DC /* InstagramStoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36529381F8A5F2E009616DC /* InstagramStoriesTableViewCell.swift */; };
 		A38D5F811F861EDE00E15382 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5F801F861EDE00E15382 /* AppDelegate.swift */; };
 		A38D5F831F861EDE00E15382 /* InstagramStoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D5F821F861EDE00E15382 /* InstagramStoryViewController.swift */; };
 		A38D5F861F861EDE00E15382 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D5F841F861EDE00E15382 /* Main.storyboard */; };
@@ -20,6 +22,7 @@
 		A3DF1A0C1F8685A6006E109D /* StoryboardIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1A091F8685A6006E109D /* StoryboardIdentifiable.swift */; };
 		A3DF1A0D1F8685A6006E109D /* UIStoryboard+Storyboards.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1A0A1F8685A6006E109D /* UIStoryboard+Storyboards.swift */; };
 		A3DF1A0E1F8685A6006E109D /* UIViewController+StoryboardIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1A0B1F8685A6006E109D /* UIViewController+StoryboardIdentifier.swift */; };
+		A3F0B6B31F89E81700A8885C /* giphy.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = A38D5FBA1F864A3600E15382 /* giphy.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A33F81621F89530F00988950 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
+		A36529381F8A5F2E009616DC /* InstagramStoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramStoriesTableViewCell.swift; sourceTree = "<group>"; };
 		A38D5F7D1F861EDE00E15382 /* InstagramStoriesModule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstagramStoriesModule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D5F801F861EDE00E15382 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38D5F821F861EDE00E15382 /* InstagramStoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramStoryViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				A38D5FB31F86424B00E15382 /* InstagramStoryCollectionViewCell.swift */,
+				A36529381F8A5F2E009616DC /* InstagramStoriesTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -199,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				A3DF1A061F86835E006E109D /* InstagramStoryDetailViewController.swift */,
+				A33F81621F89530F00988950 /* SegmentedProgressBar.swift */,
 			);
 			name = StoryDetail;
 			sourceTree = "<group>";
@@ -320,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3F0B6B31F89E81700A8885C /* giphy.mp4 in Resources */,
 				A38D5F8E1F861EDE00E15382 /* LaunchScreen.storyboard in Resources */,
 				A38D5F8B1F861EDE00E15382 /* Assets.xcassets in Resources */,
 				A38D5F861F861EDE00E15382 /* Main.storyboard in Resources */,
@@ -352,6 +360,8 @@
 				A3DF1A0E1F8685A6006E109D /* UIViewController+StoryboardIdentifier.swift in Sources */,
 				A3DF1A0C1F8685A6006E109D /* StoryboardIdentifiable.swift in Sources */,
 				A3DF1A0D1F8685A6006E109D /* UIStoryboard+Storyboards.swift in Sources */,
+				A33F81631F89530F00988950 /* SegmentedProgressBar.swift in Sources */,
+				A36529391F8A5F2E009616DC /* InstagramStoriesTableViewCell.swift in Sources */,
 				A38D5F891F861EDE00E15382 /* InstagramStoriesModule.xcdatamodeld in Sources */,
 				A38D5FB41F86424B00E15382 /* InstagramStoryCollectionViewCell.swift in Sources */,
 				A3DF1A071F86835E006E109D /* InstagramStoryDetailViewController.swift in Sources */,

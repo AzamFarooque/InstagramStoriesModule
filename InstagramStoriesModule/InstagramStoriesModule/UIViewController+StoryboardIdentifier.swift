@@ -2,8 +2,8 @@
 //  UIViewController+StoryboardIdentifier.swift
 //  EventTracker
 //
-//  Created by Farooque on 02/04/17.
-//  Copyright © 2017 Farooque. All rights reserved.
+//  Created by Farooque on 05/10/17.
+//  Copyright © 2017 Quintype. All rights reserved.
 //
 
 
