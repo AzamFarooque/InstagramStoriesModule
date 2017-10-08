@@ -10,11 +10,17 @@ import UIKit
 import AVFoundation
 import AVKit
 
-class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBarDelegate {
+protocol SelecteingNextStoriesDelegate: class {
+    func selectNextstories()
+   
+}
 
+
+class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBarDelegate {
+    weak var delegate: SelecteingNextStoriesDelegate?
     private let iv = UIImageView()
     private var playerController = AVPlayerViewController()
-    private let images = ["Image","Image-1","giphy.mp4","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8","giphy.mp4"]
+    var images  = [] as NSArray
     private var spb: SegmentedProgressBar!
     private var count : Int!
     @IBOutlet weak var storyDetailCollectionView: UICollectionView!
@@ -66,6 +72,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     func segmentedProgressBarFinished() {
         print("Finished!")
         self.dismiss(animated: false, completion: nil)
+        delegate?.selectNextstories()
     }
     
     @objc private func tappedView() {
@@ -77,8 +84,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         
         if(images.count > index){
         
-        if images[index].range(of: "mp4") != nil{
-            
+        if (images[index] as! String).range(of: "mp4") != nil{
         iv.isHidden = true
         playerController.view.isHidden = false
         playVideo()
@@ -99,7 +105,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
 
 
 
-            iv.image = UIImage(named : images[index])
+            iv.image = UIImage(named : images[index] as! String)
             if index > 0{
              self.view.bringSubview(toFront: spb)
              spb.duration = 5   
@@ -120,15 +126,19 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         let asset = AVURLAsset.init(url: URL(fileURLWithPath: path))
         let duration = asset.duration.seconds
         
-        spb.duration = duration
-       
+        
         playerController = AVPlayerViewController()
         playerController.player = player
         playerController.showsPlaybackControls = false
         playerController.view.frame = CGRect(x:0,y:0,width : self.view.frame.size.width,height : self.view.frame.size.height)
         self.view.addSubview(playerController.view)
         player.play()
-        self.view.bringSubview(toFront: spb)
+        if spb != nil{
+            spb.duration = duration
+            self.view.bringSubview(toFront: spb)
+        }
+
+       
         
         let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
         button.setImage(UIImage(named: "back"), for: .normal)
