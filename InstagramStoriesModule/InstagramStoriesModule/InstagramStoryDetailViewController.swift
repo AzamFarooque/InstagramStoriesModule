@@ -44,7 +44,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedView)))
        }
     
-    func ratingButtonTapped() {
+    func didTapCancelBuuton() {
     self.dismiss(animated: false, completion: nil)
     }
     
@@ -70,9 +70,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     }
     
     private func updateImage(index: Int) {
-        
         if(images.count > index){
-       
         if (images[index] as! String).range(of: "mp4") != nil{
         iv.isHidden = true
         playerController.view.isHidden = false
@@ -88,7 +86,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
             
             let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
             button.setImage(UIImage(named: "back"), for: .normal)
-            button.addTarget(self, action: #selector(ratingButtonTapped), for: .touchUpInside)
+            button.addTarget(self, action: #selector(didTapCancelBuuton), for: .touchUpInside)
             self.view.addSubview(button)
             self.view.bringSubview(toFront: button)
 
@@ -128,17 +126,14 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
             spb.duration = duration
             self.view.bringSubview(toFront: spb)
         }
-        
         let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
         button.setImage(UIImage(named: "back"), for: .normal)
-        button.addTarget(self, action: #selector(ratingButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapCancelBuuton), for: .touchUpInside)
         self.view.addSubview(button)
         self.view.bringSubview(toFront: button)
-        
-        
     NotificationCenter.default.addObserver(self, selector: #selector(InstagramStoryDetailViewController.finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-
         }
+    
     func finishVideo(){
         updateImage(index: count)
         print("Video Finished")
@@ -148,8 +143,6 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         super.didReceiveMemoryWarning()
         
     }
-
- 
     /*
     // MARK: - Navigation
 

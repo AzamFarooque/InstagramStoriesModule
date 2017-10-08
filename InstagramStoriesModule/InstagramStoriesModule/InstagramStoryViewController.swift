@@ -16,10 +16,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
      var selectedIndex : Int!
      let images = ["Image","Image-1","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8"]
      let name = ["Dhoni","Hrithik" ,"Salman" , "Dhawan" ,"Virat" , "Farooque" , "Steve" , "BilGate", "Arnab"]
-
     @IBOutlet weak var storiesTableView: UITableView!
-   
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,20 +25,14 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         headerView.layer.masksToBounds = false
         headerView.layer.shadowOffset = CGSize.zero
         
-        
         storyCollectionView.delegate = self
         storyCollectionView.dataSource = self
         
         storiesTableView.delegate = self
         storiesTableView.dataSource = self
-
-        
-    
     }
     
-     
-   // pragme mark : - CollectionView Deleagtes
-    
+    // Pragma Mark : - CollectionView Deleagtes
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
@@ -53,33 +44,25 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InstagramStoryCollectionViewCell", for: indexPath as IndexPath) as! InstagramStoryCollectionViewCell
         cell.backgroundColor = UIColor.clear
-        
-        
         if indexPath.row == 0{
         cell.addButton.isHidden = false
         }else{
             cell.addButton.isHidden = true
         }
-        
          cell.imageView.image = UIImage(named : images[indexPath.row])
          cell.nameLabel.text = name[indexPath.row]
-        
          cell.imageView.layer.cornerRadius = 45
          cell.imageView.clipsToBounds = true
          cell.imageView.layer.borderColor = UIColor.red.cgColor
          cell.imageView.layer.borderWidth = 1
-        
-        
         return cell
     }
        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         selectedIndex = indexPath.row
         let storyboard = UIStoryboard(storyboard: .Main)
         let subsectionVC : InstagramStoryDetailViewController = storyboard.instantiateViewController()
         navController = UINavigationController(rootViewController: subsectionVC) // Creating a
         navController.isNavigationBarHidden = true
-        
         if indexPath.row == 0{
         subsectionVC.images = ["Image","giphy.mp4","Image-1"]
         }
@@ -110,11 +93,9 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
        subsectionVC.delegate = self
        subsectionVC.modalTransitionStyle = .flipHorizontal
        self.present(navController, animated:true, completion: nil)
-        
     }
     
-    
-    // MARK : TableView Delegates
+    // Pragma MARK : TableView Delegates
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
@@ -140,6 +121,9 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
 
         return cell
     }
+    
+    // Pragme Mark :- SelecteingNextStoriesDelegate Method
+    
     func selectNextstories(){
         if selectedIndex + 1 < images.count{
         let indexPathForFirstRow = IndexPath(row: selectedIndex + 1, section: 0)
@@ -149,21 +133,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         return
     }
 
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-       
     }
 }
-
-extension UIView{
-    func addShadowView(view : UIView){
-        let view = UIView()
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.masksToBounds = false
-        view.layer.shadowOffset = CGSize.zero
-    }
-}
-

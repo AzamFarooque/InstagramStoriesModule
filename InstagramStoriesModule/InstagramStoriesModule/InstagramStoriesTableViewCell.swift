@@ -9,8 +9,6 @@
 import UIKit
 
 class InstagramStoriesTableViewCell: UITableViewCell {
-
-   
     @IBOutlet weak var imgView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
 }
