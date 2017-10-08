@@ -130,7 +130,7 @@
 				A3DF1A081F868595006E109D /* StoryBoard */,
 				A3DF1A051F868337006E109D /* StoryDetail */,
 				A38D5FB11F86253D00E15382 /* Appdelegate */,
-				A38D5FB21F86255600E15382 /* Story */,
+				A38D5FB21F86255600E15382 /* StoryList */,
 				A38D5F8A1F861EDE00E15382 /* Assets.xcassets */,
 				A38D5F8C1F861EDE00E15382 /* LaunchScreen.storyboard */,
 				A38D5F8F1F861EDE00E15382 /* Info.plist */,
@@ -165,14 +165,14 @@
 			name = Appdelegate;
 			sourceTree = "<group>";
 		};
-		A38D5FB21F86255600E15382 /* Story */ = {
+		A38D5FB21F86255600E15382 /* StoryList */ = {
 			isa = PBXGroup;
 			children = (
 				A38D5FB61F86480600E15382 /* View */,
 				A38D5FB51F8647F800E15382 /* ViewController */,
 				A38D5F841F861EDE00E15382 /* Main.storyboard */,
 			);
-			name = Story;
+			name = StoryList;
 			sourceTree = "<group>";
 		};
 		A38D5FB51F8647F800E15382 /* ViewController */ = {
