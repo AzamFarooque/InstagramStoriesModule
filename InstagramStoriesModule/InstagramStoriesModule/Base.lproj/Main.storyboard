@@ -85,6 +85,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="u2e-ak-RBg"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="quR-wE-6vk"/>
+                                </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8dP-rK-x3g">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
@@ -173,6 +177,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="H3G-Z3-eDp"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="a6F-fx-ENr"/>
+                                </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch All" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvz-J0-iHS">
                                 <rect key="frame" x="280" y="75" width="85" height="20"/>

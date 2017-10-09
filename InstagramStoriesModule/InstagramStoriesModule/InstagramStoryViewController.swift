@@ -27,30 +27,26 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         fetchStories()
     }
     
-       func fetchStories(){
+    // Pragma Mark :- Fetch Stories
+    
+    func fetchStories(){
         InstagramUserServices.fetchStoriesList(){ (responseObject:NSArray?, error:NSError?,total) in
             if ((error) != nil) {
                 print("Error logging you in!")
             } else {
                 print("got it..")
                 self.storiesArray = responseObject
-                storyCollectionView.delegate = self
-                storyCollectionView.dataSource = self
                 storyCollectionView.reloadData()
-                storiesTableView.delegate = self
-                storiesTableView.dataSource = self
                 storiesTableView.reloadData()
-
-               
             }
         }
     }
-
+    
     
     // Pragma Mark : - CollectionView Deleagtes
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storiesArray.count
+        return storiesArray.count == 0 ? 0 : storiesArray.count
     }
     private func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -67,7 +63,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         }else{
             cell.addButton.isHidden = true
         }
-       
+        
         cell.imageView.image = UIImage(named : section.images!)
         cell.nameLabel.text = section.name
         cell.imageView.layer.cornerRadius = 45
@@ -92,7 +88,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
             self.present(navController, animated:true, completion: nil)
             automaticSelection = false
         }else{
-           self.present(navController, animated:false, completion: nil)
+            self.present(navController, animated:false, completion: nil)
         }
         
     }
@@ -112,7 +108,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return storiesArray.count
+        return  storiesArray.count == 0 ? 0 : storiesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

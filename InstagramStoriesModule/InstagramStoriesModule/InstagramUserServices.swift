@@ -13,7 +13,7 @@ typealias ServiceResponseArray = (NSArray?, NSError?,NSInteger) -> Void
 
 final class InstagramUserServices {
     
-   class func fetchStoriesList(onCompletion: ServiceResponseArray){
+    class func fetchStoriesList(onCompletion: ServiceResponseArray){
         if let path = Bundle.main.path(forResource: "jsonFile", ofType: "json") {
             do {
                 let url = NSURL(fileURLWithPath: path)

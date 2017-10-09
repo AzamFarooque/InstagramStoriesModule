@@ -117,6 +117,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A33F12EC1F8B5278009C85B1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A3D8CF1E1F8B4768009E065C /* InstagramUserServices.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		A33F12ED1F8B5286009C85B1 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				A37CE2261F8B3CF100DFC1FC /* jsonFile.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 		A346D7851F8A739500BBF75C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +209,8 @@
 		A38D5FB21F86255600E15382 /* StoryList */ = {
 			isa = PBXGroup;
 			children = (
-				A3D8CF1E1F8B4768009E065C /* InstagramUserServices.swift */,
-				A37CE2261F8B3CF100DFC1FC /* jsonFile.json */,
+				A33F12ED1F8B5286009C85B1 /* JSON */,
+				A33F12EC1F8B5278009C85B1 /* Services */,
 				A3B7DCD11F8B356F0031AD08 /* Model */,
 				A38D5FB61F86480600E15382 /* View */,
 				A38D5FB51F8647F800E15382 /* ViewController */,

@@ -90,7 +90,7 @@ class SegmentedProgressBar: UIView {
         animate()
     }
     
-  private func animate(animationIndex: Int = 0) {
+    private func animate(animationIndex: Int = 0) {
         let nextSegment = segments[animationIndex]
         currentAnimationIndex = animationIndex
         self.isNext = false // no idea why we have to do this here, but it fixes everything :D

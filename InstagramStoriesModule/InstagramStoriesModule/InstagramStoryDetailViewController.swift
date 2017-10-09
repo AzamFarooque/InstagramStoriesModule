@@ -12,7 +12,7 @@ import AVKit
 
 protocol SelecteingNextStoriesDelegate: class {
     func selectNextstories()
-   }
+}
 
 class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBarDelegate {
     weak var delegate: SelecteingNextStoriesDelegate?
@@ -24,7 +24,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     var isVideo : Bool = false
     var videoDuration : TimeInterval!
     @IBOutlet weak var storyDetailCollectionView: UICollectionView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
@@ -37,15 +37,15 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         spb.bottomColor = UIColor.white.withAlphaComponent(0.25)
         spb.padding = 2
         if isVideo == true{
-        spb.duration = videoDuration
+            spb.duration = videoDuration
         }
         view.addSubview(spb)
         spb.startAnimation()
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tappedView)))
-       }
+    }
     
     func didTapCancelBuuton() {
-    self.dismiss(animated: false, completion: nil)
+        self.dismiss(animated: false, completion: nil)
     }
     
     
@@ -65,45 +65,45 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     }
     
     @objc private func tappedView() {
-         spb.isNext = !spb.isNext
-         updateImage(index: count + 1)
+        spb.isNext = !spb.isNext
+        updateImage(index: count + 1)
     }
     
     private func updateImage(index: Int) {
         if(images.count > index){
-        if (images[index] as! String).range(of: "mp4") != nil{
-        iv.isHidden = true
-        playerController.view.isHidden = false
-        playVideo(videoName: images[index] as! String as NSString)
-        }
-        else{
-            isVideo = false
-            iv.isHidden = false
-            playerController.view.isHidden = true
-            iv.frame = view.bounds
-            iv.contentMode = .scaleAspectFill
-            self.view.addSubview(iv)
-            
-            let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
-            button.setImage(UIImage(named: "back"), for: .normal)
-            button.addTarget(self, action: #selector(didTapCancelBuuton), for: .touchUpInside)
-            self.view.addSubview(button)
-            self.view.bringSubview(toFront: button)
-
-
-
-            iv.image = UIImage(named : images[index] as! String)
-            if index > 0{
-             self.view.bringSubview(toFront: spb)
-             spb.duration = 5   
+            if (images[index] as! String).range(of: "mp4") != nil{
+                iv.isHidden = true
+                playerController.view.isHidden = false
+                playVideo(videoName: images[index] as! String as NSString)
+            }
+            else{
+                isVideo = false
+                iv.isHidden = false
+                playerController.view.isHidden = true
+                iv.frame = view.bounds
+                iv.contentMode = .scaleAspectFill
+                self.view.addSubview(iv)
+                
+                let button = UIButton(frame: CGRect(x: self.view.frame.size.width-80, y: 40, width: 40, height: 40))
+                button.setImage(UIImage(named: "back"), for: .normal)
+                button.addTarget(self, action: #selector(didTapCancelBuuton), for: .touchUpInside)
+                self.view.addSubview(button)
+                self.view.bringSubview(toFront: button)
+                
+                
+                
+                iv.image = UIImage(named : images[index] as! String)
+                if index > 0{
+                    self.view.bringSubview(toFront: spb)
+                    spb.duration = 5
+                }
+                
             }
             
-        }
-    
-        count = index
+            count = index
         }
     }
-
+    
     private func playVideo(videoName : NSString) {
         let videoExtention = videoName.pathExtension
         let videoPrefix = videoName.deletingPathExtension
@@ -131,8 +131,8 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         button.addTarget(self, action: #selector(didTapCancelBuuton), for: .touchUpInside)
         self.view.addSubview(button)
         self.view.bringSubview(toFront: button)
-    NotificationCenter.default.addObserver(self, selector: #selector(InstagramStoryDetailViewController.finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(InstagramStoryDetailViewController.finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+    }
     
     func finishVideo(){
         updateImage(index: count)
@@ -144,13 +144,13 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
         
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
