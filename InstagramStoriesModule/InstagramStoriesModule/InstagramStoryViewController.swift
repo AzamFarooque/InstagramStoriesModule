@@ -15,8 +15,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     var navController : UINavigationController!
     var selectedIndex : Int!
     var automaticSelection : Bool = false
-    let images = ["Image","Image-1","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8"]
-    let name = ["Dhoni","Hrithik" ,"Salman" , "Dhawan" ,"Virat" , "Farooque" , "Steve" , "BilGate", "Arnab"]
+    var storiesArray : NSArray!
     @IBOutlet weak var storiesTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,18 +24,33 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
         headerView.layer.shadowOpacity = 1
         headerView.layer.masksToBounds = false
         headerView.layer.shadowOffset = CGSize.zero
-        
-        storyCollectionView.delegate = self
-        storyCollectionView.dataSource = self
-        
-        storiesTableView.delegate = self
-        storiesTableView.dataSource = self
+        fetchStories()
     }
+    
+       func fetchStories(){
+        InstagramUserServices.fetchStoriesList(){ (responseObject:NSArray?, error:NSError?,total) in
+            if ((error) != nil) {
+                print("Error logging you in!")
+            } else {
+                print("got it..")
+                self.storiesArray = responseObject
+                storyCollectionView.delegate = self
+                storyCollectionView.dataSource = self
+                storyCollectionView.reloadData()
+                storiesTableView.delegate = self
+                storiesTableView.dataSource = self
+                storiesTableView.reloadData()
+
+               
+            }
+        }
+    }
+
     
     // Pragma Mark : - CollectionView Deleagtes
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return storiesArray.count
     }
     private func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -44,14 +58,18 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InstagramStoryCollectionViewCell", for: indexPath as IndexPath) as! InstagramStoryCollectionViewCell
+        
+        let section:InstagramStoriesModel=storiesArray[indexPath.row] as! InstagramStoriesModel
+        
         cell.backgroundColor = UIColor.clear
         if indexPath.row == 0{
             cell.addButton.isHidden = false
         }else{
             cell.addButton.isHidden = true
         }
-        cell.imageView.image = UIImage(named : images[indexPath.row])
-        cell.nameLabel.text = name[indexPath.row]
+       
+        cell.imageView.image = UIImage(named : section.images!)
+        cell.nameLabel.text = section.name
         cell.imageView.layer.cornerRadius = 45
         cell.imageView.clipsToBounds = true
         cell.imageView.layer.borderColor = UIColor.red.cgColor
@@ -60,37 +78,14 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedIndex = indexPath.row
+        
+        let section:InstagramStoriesModel=storiesArray[indexPath.row] as! InstagramStoriesModel
+        
         let storyboard = UIStoryboard(storyboard: .Main)
         let subsectionVC : InstagramStoryDetailViewController = storyboard.instantiateViewController()
         navController = UINavigationController(rootViewController: subsectionVC) // Creating a
         navController.isNavigationBarHidden = true
-        if indexPath.row == 0{
-            subsectionVC.images = ["Image","giphy.mp4","Image-1"]
-        }
-        if indexPath.row == 1{
-            subsectionVC.images = ["giphy.mp4","Image","open_sign.mp4"]
-        }
-        if indexPath.row == 2{
-            subsectionVC.images = ["Image"]
-        }
-        if indexPath.row == 3{
-            subsectionVC.images = ["Image-3","Image-4","Image-5"]
-        }
-        if indexPath.row == 4{
-            subsectionVC.images = ["Image","Image-1","Image-2","Image-3","Image-4","Image-5"]
-        }
-        if indexPath.row == 5{
-            subsectionVC.images = ["Image","Image-1","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8"]
-        }
-        if indexPath.row == 6{
-            subsectionVC.images = ["Image-5","Image-6","Image-7","Image-8"]
-        }
-        if indexPath.row == 7{
-            subsectionVC.images = ["Image-7","Image-8"]
-        }
-        if indexPath.row == 8{
-            subsectionVC.images = ["Image"]
-        }
+        subsectionVC.images = section.storiesArray!
         subsectionVC.delegate = self
         if automaticSelection == true{
             subsectionVC.modalTransitionStyle = .flipHorizontal
@@ -117,13 +112,15 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return images.count
+        return storiesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "InstagramStoriesTableViewCell", for: indexPath as IndexPath) as! InstagramStoriesTableViewCell
-        cell.imgView?.image = UIImage(named : images[indexPath.row])
-        cell.nameLabel.text = name[indexPath.row]
+        
+        let section:InstagramStoriesModel=storiesArray[indexPath.row] as! InstagramStoriesModel
+        cell.imgView?.image = UIImage(named : section.images!)
+        cell.nameLabel.text = section.name!
         
         return cell
     }
@@ -131,7 +128,7 @@ class InstagramStoryViewController: UIViewController,UICollectionViewDelegate,UI
     // Pragme Mark :- SelecteingNextStoriesDelegate Method
     
     func selectNextstories(){
-        if selectedIndex + 1 < images.count{
+        if selectedIndex + 1 < storiesArray.count{
             automaticSelection = true
             let indexPathForFirstRow = IndexPath(row: selectedIndex + 1, section: 0)
             storyCollectionView.selectItem(at: indexPathForFirstRow, animated: false, scrollPosition: UICollectionViewScrollPosition.left)

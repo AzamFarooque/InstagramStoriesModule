@@ -1,0 +1,60 @@
+[
+ 
+        
+        {
+            "name" : "Dhoni",
+            "imageURL"  :  "Image",
+            "storiesInside" :["Image","giphy.mp4","Image-1"]
+ 
+        },
+        
+        {
+            "name" : "Hrithik",
+            "imageURL"  :  "Image-1",
+            "storiesInside" :["giphy.mp4","Image","open_sign.mp4"]
+            
+        },
+        
+       {
+            "name" : "Salman",
+            "imageURL"  :  "Image-2",
+            "storiesInside" :["Image"]
+        },
+        
+        {
+            "name" : "Dhawan",
+            "imageURL"  :  "Image-3",
+            "storiesInside" :["Image-3","Image-4","Image-5"]
+        },
+        
+       {
+            "name" : "Virat",
+            "imageURL"  :  "Image-4",
+            "storiesInside" :["Image","Image-1","Image-2","Image-3","Image-4","Image-5"]
+            
+        },
+        
+       {
+            "name" : "Farooque",
+            "imageURL"  :  "Image-5",
+            "storiesInside" :["Image","Image-1","Image-2","Image-3","Image-4","Image-5","Image-6","Image-7","Image-8"]
+        },
+        
+        {
+            "name" : "Steve",
+            "imageURL"  :  "Image-6",
+            "storiesInside" :["Image-5","Image-6","Image-7","Image-8"]
+        },
+        
+         {
+            "name" : "BilGate",
+            "imageURL"  :  "Image-7",
+            "storiesInside" :["Image-7","Image-8"]
+        },
+        
+        {
+            "name" : "Arnab",
+            "imageURL"  :  "Image-8",
+            "storiesInside" :["Image"]
+         }
+]
