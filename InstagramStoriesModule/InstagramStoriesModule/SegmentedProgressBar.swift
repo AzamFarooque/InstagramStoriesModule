@@ -28,9 +28,9 @@ class SegmentedProgressBar: UIView {
         }
     }
     var padding: CGFloat = 2.0
-    var isPaused: Bool = false {
+    var isNext: Bool = false {
         didSet {
-            if isPaused {
+            if isNext {
                 for segment in segments {
                     let layer = segment.topSegmentView.layer
                     let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
@@ -93,7 +93,7 @@ class SegmentedProgressBar: UIView {
   private func animate(animationIndex: Int = 0) {
         let nextSegment = segments[animationIndex]
         currentAnimationIndex = animationIndex
-        self.isPaused = false // no idea why we have to do this here, but it fixes everything :D
+        self.isNext = false // no idea why we have to do this here, but it fixes everything :D
         UIView.animate(withDuration: duration, delay: 0.0, options: .curveLinear, animations: {
             nextSegment.topSegmentView.frame.size.width = nextSegment.bottomSegmentView.frame.width
         }) { (finished) in

@@ -65,7 +65,7 @@ class InstagramStoryDetailViewController: UIViewController, SegmentedProgressBar
     }
     
     @objc private func tappedView() {
-         spb.isPaused = !spb.isPaused
+         spb.isNext = !spb.isNext
          updateImage(index: count + 1)
     }
     
